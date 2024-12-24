@@ -1,14 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import Script from 'next/script'; // وارد کردن کامپوننت Script
 
-const geistSans = Geist({
+// components
+import Navbar from "./components/Navbar";
+import Index from "./components/Pages/Index";
+
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "100 900",
 });
-
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "100 900",
 });
 
 export const metadata = {
@@ -19,10 +25,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script 
+          type="module" 
+          src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" 
+          strategy="afterInteractive" // بارگذاری بعد از تعامل
+        />
+        <Script 
+          nomodule 
+          src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" 
+          strategy="afterInteractive" // بارگذاری بعد از تعامل
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Index />
       </body>
     </html>
   );
